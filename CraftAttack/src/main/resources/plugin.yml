@@ -1,0 +1,19 @@
+name: CraftAttack
+version: 1.0.0
+main: de.vmoon.craftattack.CraftAttack
+api-version: '1.20'
+authors: [VoidableMoon884]
+description: CraftAttack Addon
+website: https://ca.vmoon.de/
+commands:
+  pvp:
+    description: Aktiviert/Deaktiviert PVP
+    usage: /pvp [on|off]
+    permission: pvp.use
+    children:
+      pvp.on:
+        description: Aktiviert PVP
+        permission: pvp.on
+      pvp.off:
+        description: Deaktiviert PVP
+        permission: pfp.off
