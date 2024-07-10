@@ -6,19 +6,30 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class statusCommand implements CommandExecutor, TabCompleter {
+public class statusCommand implements CommandExecutor, TabCompleter, Listener {
 
-    private final List<String> colors = Arrays.stream(ChatColor.values())
-            .filter(ChatColor::isColor)
-            .map(Enum::name)
-            .map(String::toLowerCase)
-            .collect(Collectors.toList());
+    private final JavaPlugin plugin;
+    private final List<String> colors;
+
+    public statusCommand(JavaPlugin plugin) {
+        this.plugin = plugin;
+        this.colors = Arrays.stream(ChatColor.values())
+                .filter(ChatColor::isColor)
+                .map(Enum::name)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -46,8 +57,17 @@ public class statusCommand implements CommandExecutor, TabCompleter {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             String originalName = player.getName();
-            player.setDisplayName(color + "[" + status + "]" + ChatColor.RESET + " " + originalName);
-            sender.sendMessage(ChatColor.GREEN + "Dein Status wurde auf '" + color + "[" + status + "]" + ChatColor.GREEN + "' gesetzt.");
+            String displayName = color + "[" + status + "]" + ChatColor.RESET + " " + originalName;
+            player.setDisplayName(displayName);
+            player.setPlayerListName(displayName);
+
+            // Speichere den Status
+            FileConfiguration config = plugin.getConfig();
+            config.set("status." + player.getUniqueId() + ".status", status);
+            config.set("status." + player.getUniqueId() + ".color", color.name());
+            plugin.saveConfig();
+
+            sender.sendMessage(ChatColor.GREEN + "Dein Status wurde auf '" + displayName + ChatColor.GREEN + "' gesetzt.");
         } else {
             sender.sendMessage(ChatColor.RED + "Nur Spieler können diesen Befehl verwenden.");
         }
@@ -63,5 +83,23 @@ public class statusCommand implements CommandExecutor, TabCompleter {
                     .collect(Collectors.toList());
         }
         return List.of();
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        loadPlayerStatus(event.getPlayer());
+    }
+
+    public void loadPlayerStatus(Player player) {
+        FileConfiguration config = plugin.getConfig();
+        String status = config.getString("status." + player.getUniqueId() + ".status", "");
+        String colorName = config.getString("status." + player.getUniqueId() + ".color", "WHITE");
+        ChatColor color = ChatColor.valueOf(colorName);
+
+        if (!status.isEmpty()) {
+            String displayName = color + "[" + status + "]" + ChatColor.RESET + " " + player.getName();
+            player.setDisplayName(displayName);
+            player.setPlayerListName(displayName);
+        }
     }
 }
