@@ -1,0 +1,7 @@
+name: CraftAttack
+version: '1.0'
+main: de.vmoon.craftattack.CraftAttack
+api-version: '1.21'
+authors: [VoidableMoon884]
+description: A CraftAttack Plugin
+website: https://vmoon.de
