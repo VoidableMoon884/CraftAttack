@@ -14,7 +14,7 @@ public class pvpCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String s, String[] args) {
         if (cmd.getName().equalsIgnoreCase("pvp")) {
-            if (!sender.hasPermission("pvp.use")) {
+            if (!sender.hasPermission("ca.pvp")) {
                 sender.sendMessage("§cDu hast keine Berechtigung um diesen Befehl auszuführen!");
                 return true;
             }
@@ -25,7 +25,7 @@ public class pvpCommand implements CommandExecutor, TabCompleter {
                 }
                 else {
                     if (args[0].equalsIgnoreCase("on")) {
-                        if (!sender.hasPermission("pvp.on")) {
+                        if (!sender.hasPermission("ca.pvp.on")) {
                             sender.sendMessage("§cDu hast keine Berechtigung um diesen Befehl auszuführen!");
                             return true;
                         }
@@ -35,7 +35,7 @@ public class pvpCommand implements CommandExecutor, TabCompleter {
                         }
                     }
                     else if (args[0].equalsIgnoreCase("off")) {
-                        if (!sender.hasPermission("pvp.off")) {
+                        if (!sender.hasPermission("ca.pvp.off")) {
                             sender.sendMessage("§cDu hast keine Berechtigung um diesen Befehl auszuführen!");
                             return true;
                         }

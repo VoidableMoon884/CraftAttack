@@ -12,13 +12,15 @@ public final class CraftAttack extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        saveDefaultConfig(); // Save default config if not exists
+        saveDefaultConfig();
 
         this.statusCommand = new statusCommand(this);
         getCommand("status").setExecutor(statusCommand);
         getCommand("status").setTabCompleter(statusCommand);
         getServer().getPluginManager().registerEvents(statusCommand, this);
         getCommand("pvp").setExecutor(new pvpCommand());
+        getCommand("tempban").setExecutor(new tempBanCommand());
+        getCommand("tempban").setTabCompleter(new tempBanCommand());
     }
 
     @Override

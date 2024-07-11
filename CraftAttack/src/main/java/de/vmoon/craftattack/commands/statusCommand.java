@@ -33,46 +33,52 @@ public class statusCommand implements CommandExecutor, TabCompleter, Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length == 0) {
-            sender.sendMessage(ChatColor.RED + "Bitte gib einen Status an.");
-            return false;
+        if (!sender.hasPermission("ca.status")) {
+            sender.sendMessage("§cDu hast keine Berechtigung um diesen Befehl auszuführen!");
+            return true;
         }
+        else {
+            if (args.length == 0) {
+                sender.sendMessage(ChatColor.RED + "Bitte gib einen Status an.");
+                return false;
+            }
 
-        String status = args[0];
-        ChatColor color = ChatColor.WHITE;
+            String status = args[0];
+            ChatColor color = ChatColor.WHITE;
 
-        if (args.length > 1) {
-            try {
-                color = ChatColor.valueOf(args[1].toUpperCase());
-                if (!color.isColor()) {
+            if (args.length > 1) {
+                try {
+                    color = ChatColor.valueOf(args[1].toUpperCase());
+                    if (!color.isColor()) {
+                        sender.sendMessage(ChatColor.RED + "Ungültige Farbe. Verfügbare Farben sind: " + String.join(", ", colors));
+                        return false;
+                    }
+                } catch (IllegalArgumentException e) {
                     sender.sendMessage(ChatColor.RED + "Ungültige Farbe. Verfügbare Farben sind: " + String.join(", ", colors));
                     return false;
                 }
-            } catch (IllegalArgumentException e) {
-                sender.sendMessage(ChatColor.RED + "Ungültige Farbe. Verfügbare Farben sind: " + String.join(", ", colors));
-                return false;
             }
+
+            if (sender instanceof Player) {
+                Player player = (Player) sender;
+                String originalName = player.getName();
+                String displayName = color + "[" + status + "]" + ChatColor.RESET + " " + originalName;
+                player.setDisplayName(displayName);
+                player.setPlayerListName(displayName);
+
+                // Speichere den Status
+                FileConfiguration config = plugin.getConfig();
+                config.set("status." + player.getUniqueId() + ".status", status);
+                config.set("status." + player.getUniqueId() + ".color", color.name());
+                plugin.saveConfig();
+
+                sender.sendMessage(ChatColor.GREEN + "Dein Status wurde auf '" + displayName + ChatColor.GREEN + "' gesetzt.");
+            } else {
+                sender.sendMessage(ChatColor.RED + "Nur Spieler können diesen Befehl verwenden.");
+            }
+
+            return true;
         }
-
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            String originalName = player.getName();
-            String displayName = color + "[" + status + "]" + ChatColor.RESET + " " + originalName;
-            player.setDisplayName(displayName);
-            player.setPlayerListName(displayName);
-
-            // Speichere den Status
-            FileConfiguration config = plugin.getConfig();
-            config.set("status." + player.getUniqueId() + ".status", status);
-            config.set("status." + player.getUniqueId() + ".color", color.name());
-            plugin.saveConfig();
-
-            sender.sendMessage(ChatColor.GREEN + "Dein Status wurde auf '" + displayName + ChatColor.GREEN + "' gesetzt.");
-        } else {
-            sender.sendMessage(ChatColor.RED + "Nur Spieler können diesen Befehl verwenden.");
-        }
-
-        return true;
     }
 
     @Override
