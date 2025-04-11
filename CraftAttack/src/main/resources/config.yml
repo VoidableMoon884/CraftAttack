@@ -1,0 +1,23 @@
+#CraftAttack Plugin Config file
+
+#Worldborder beim Start
+worldborder:
+  initial: 100.0
+  target: 20000.0
+  center:
+    x: 0.0
+    z: 0.0
+
+#Willkommenstexte
+title: '{"text":"Willkommen auf CraftAttack!","color":"red"}'
+welcome: "&aWillkommen auf CraftAttack! Viel Spaß beim Spiel!"
+
+#/craftattack teleportall und Start Teleport Koordinaten
+teleport:
+  x: 100.0
+  y: 64.0
+  z: 100.0
+
+#Text unter der Spielerliste, wenn TAB gedrückt wird
+tabtext: true
+tab: '{"text":"Default Tab","color":"gold"}'

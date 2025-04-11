@@ -1,0 +1,50 @@
+name: CraftAttack
+version: "1.0"
+main: de.vmoon.craftAttack.CraftAttack
+api-version: "1.21"
+authors: [ "VoidableMoon884" ]
+description: "A CraftAttack Community Plugin"
+website: "vmoon.de"
+
+commands:
+  craftattack:
+    description: "Steuert das CraftAttack-Event (Unterbefehle: start, stop, teleportall, settitle, settab, reload)"
+    usage: /craftattack <start|stop|teleportall|settitle|settab|reload>
+    permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
+  pvp:
+    description: "Schaltet den PvP-Modus ein oder aus."
+    usage: /pvp <on|off>
+    permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
+
+permissions:
+  ca.admin.start:
+    description: "Erlaubt das Starten des CraftAttack-Events."
+    default: op
+
+  ca.admin.stop:
+    description: "Erlaubt das Stoppen des laufenden CraftAttack-Events."
+    default: op
+
+  ca.admin.teleportall:
+    description: "Erlaubt das Teleportieren aller Spieler zu den festgelegten Koordinaten."
+    default: op
+
+  ca.admin.settitle:
+    description: "Erlaubt das Setzen des Titles via /craftattack settitle."
+    default: op
+
+  ca.admin.settab:
+    description: "Erlaubt das Setzen des Tab-Texts via /craftattack settab."
+    default: op
+
+  ca.admin.reload:
+    description: "Erlaubt das Neuladen der Config via /craftattack reload."
+    default: op
+
+  ca.admin.pvp.on:
+    description: "Erlaubt das Einschalten des PvP-Modus."
+    default: op
+
+  ca.admin.pvp.off:
+    description: "Erlaubt das Ausschalten des PvP-Modus."
+    default: op
