@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.0"
+version: "1.1"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -8,8 +8,8 @@ website: "vmoon.de"
 
 commands:
   craftattack:
-    description: "Steuert das CraftAttack-Event (Unterbefehle: start, stop, teleportall, settitle, settab, reload)"
-    usage: /craftattack <start|stop|teleportall|settitle|settab|reload>
+    description: "Steuert das CraftAttack-Event (Unterbefehle: start, stop, teleportall, settitle, settab, reload, invsee)"
+    usage: /craftattack <start|stop|teleportall|settitle|settab|reload|invsee>
     permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
   pvp:
     description: "Schaltet den PvP-Modus ein oder aus."
@@ -39,6 +39,10 @@ permissions:
 
   ca.admin.reload:
     description: "Erlaubt das Neuladen der Config via /craftattack reload."
+    default: op
+
+  ca.admin.invsee:
+    description: "Erlaubt das Sehen (und Bearbeiten) von Inventaren via /craftattack invsee"
     default: op
 
   ca.admin.pvp.on:

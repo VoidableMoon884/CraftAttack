@@ -11,6 +11,7 @@ de\vmoon\craftAttack\utils\Metrics$SimplePie.class
 de\vmoon\craftAttack\utils\ConfigManager.class
 de\vmoon\craftAttack\CraftAttack.class
 de\vmoon\craftAttack\utils\JsonColorConverter.class
+de\vmoon\craftAttack\commands\InvseeCommand.class
 de\vmoon\craftAttack\utils\Metrics$MetricsBase.class
 de\vmoon\craftAttack\utils\Metrics$JsonObjectBuilder.class
 de\vmoon\craftAttack\utils\Metrics$SingleLineChart.class

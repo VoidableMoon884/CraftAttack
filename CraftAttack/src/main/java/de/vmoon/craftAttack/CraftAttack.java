@@ -1,7 +1,7 @@
 package de.vmoon.craftAttack;
 
 import de.vmoon.craftAttack.commands.*;
-import de.vmoon.craftAttack.listeners.PlayerJoinListener;
+import de.vmoon.craftAttack.listeners.*;
 import de.vmoon.craftAttack.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,7 +18,7 @@ public final class CraftAttack extends JavaPlugin {
 
         // Metrics initialisieren (falls genutzt)
         int pluginId = 25435;
-        Metrics metrics = new Metrics(this, pluginId);
+        new Metrics(this, pluginId);
 
         // Überprüfe, ob der Befehl "craftattack" registriert wurde
         if (getCommand("craftattack") == null) {
@@ -27,15 +27,13 @@ public final class CraftAttack extends JavaPlugin {
             return;
         }
 
-        // Registriere die Hauptbefehle
+        // Registriere den Hauptbefehl (/craftattack)
         getCommand("craftattack").setExecutor(new CraftAttackCommand());
         getCommand("craftattack").setTabCompleter(new CraftAttackCommand());
+
+        // Registriere evtl. weitere Befehle, z. B. /pvp
         if (getCommand("pvp") != null) {
             getCommand("pvp").setExecutor(new pvpCommand());
-        }
-        // Registriere den Reload-Befehl (als eigener Command)
-        if (getCommand("craftattackreload") != null) {
-            getCommand("craftattackreload");
         }
 
         // Registriere den Listener, der neuen Spielern den Tab-Text setzt
@@ -51,7 +49,7 @@ public final class CraftAttack extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        // Plugin shutdown logic (falls benötigt)
     }
 
     public static CraftAttack getInstance() {
