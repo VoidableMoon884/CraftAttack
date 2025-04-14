@@ -71,6 +71,7 @@ public class StartCommand {
                 p.sendTitle(title, "", 10, 40, 10);
             }
             sender.sendMessage(ChatColor.translateAlternateColorCodes('&', config.getWelcomeMessage()));
+            PvPUtils.togglePvP(true);
             return true;
 
         } else if (sub.equals("stop")) {
@@ -85,6 +86,7 @@ public class StartCommand {
             border.setSize(9999999, 0);
             processActive = false;
             sender.sendMessage(ChatColor.GREEN + "Prozess gestoppt. WorldBorder deaktiviert!");
+            PvPUtils.togglePvP(false);
             return true;
 
         } else if (sub.equals("teleportall")) {

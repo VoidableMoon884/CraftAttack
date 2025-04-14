@@ -1,6 +1,7 @@
 package de.vmoon.craftAttack.commands;
 
 import de.vmoon.craftAttack.CraftAttack;
+import de.vmoon.craftAttack.utils.PvPUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;

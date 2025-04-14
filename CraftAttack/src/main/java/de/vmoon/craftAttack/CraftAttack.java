@@ -10,6 +10,7 @@ public final class CraftAttack extends JavaPlugin {
 
     private static CraftAttack instance;
     private ConfigManager configManager;
+    private pvpCommand pvpCmd; // Instanz von pvpCommand hinzufügen
 
     @Override
     public void onEnable() {
@@ -26,6 +27,7 @@ public final class CraftAttack extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
         getServer().getPluginManager().registerEvents(new SpawnProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new SpawnSelectionListener(), this);
 
@@ -33,9 +35,10 @@ public final class CraftAttack extends JavaPlugin {
         getCommand("craftattack").setExecutor(new CraftAttackCommand());
         getCommand("craftattack").setTabCompleter(new CraftAttackCommand());
 
-        // Registriere evtl. weitere Befehle, z. B. /pvp
+        // Initialisiere die pvpCommand Instanz und registriere den "pvp"-Befehl
+        pvpCmd = new pvpCommand();
         if (getCommand("pvp") != null) {
-            getCommand("pvp").setExecutor(new pvpCommand());
+            getCommand("pvp").setExecutor(pvpCmd);
         }
 
         // Registriere den Listener, der neuen Spielern den Tab-Text setzt
@@ -60,6 +63,10 @@ public final class CraftAttack extends JavaPlugin {
 
     public ConfigManager getConfigManager() {
         return configManager;
+    }
+
+    public pvpCommand getPvpCmd() {
+        return pvpCmd; // Getter für pvpCommand
     }
 
     /**

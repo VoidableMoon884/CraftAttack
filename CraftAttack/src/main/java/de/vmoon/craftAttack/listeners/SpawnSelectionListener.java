@@ -90,6 +90,7 @@ public class SpawnSelectionListener implements Listener {
 
             // Auswahl zurücksetzen, sodass der Spieler neu markieren kann
             selections.remove(uuid);
+            
 
             // Entferne das Spawn-Auswahl Werkzeug aus dem Inventar:
             for (int i = 0; i < player.getInventory().getSize(); i++) {
