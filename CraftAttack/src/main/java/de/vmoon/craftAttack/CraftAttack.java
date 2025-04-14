@@ -26,6 +26,8 @@ public final class CraftAttack extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        getServer().getPluginManager().registerEvents(new SpawnProtectionListener(), this);
+        getServer().getPluginManager().registerEvents(new SpawnSelectionListener(), this);
 
         // Registriere den Hauptbefehl (/craftattack)
         getCommand("craftattack").setExecutor(new CraftAttackCommand());

@@ -9,6 +9,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             return SetTextsCommand.handle(sender, args);
         } else if (sub.equals("reload")) {
             return ReloadCommand.handle(sender, args);
+        } else if (sub.equals("setspawn")) {
+            // Hier entfernen wir den Sub-Befehl selbst, sodass SetSpawnCommand ein leeres Array erhält.
+            return new SetSpawnCommand().onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("invsee")) {
             // Prüfe, ob der invsee-Befehl in der Config aktiviert ist
             if (!CraftAttack.getInstance().getConfigManager().getConfig().getBoolean("invsee", false)) {
@@ -61,6 +65,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             }
             if (sender.hasPermission("ca.admin.settitle")) {
                 subs.add("settitle");
+            }
+            if (sender.hasPermission("ca.admin.setspawn")) {
+                subs.add("setspawn");
             }
             if (CraftAttack.getInstance().getConfigManager().isTabTextEnabled()) {
                 if (sender.hasPermission("ca.admin.settab")) {

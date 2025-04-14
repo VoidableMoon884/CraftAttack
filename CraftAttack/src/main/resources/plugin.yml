@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.1"
+version: "1.2"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -20,35 +20,30 @@ permissions:
   ca.admin.start:
     description: "Erlaubt das Starten des CraftAttack-Events."
     default: op
-
   ca.admin.stop:
     description: "Erlaubt das Stoppen des laufenden CraftAttack-Events."
     default: op
-
   ca.admin.teleportall:
     description: "Erlaubt das Teleportieren aller Spieler zu den festgelegten Koordinaten."
     default: op
-
   ca.admin.settitle:
     description: "Erlaubt das Setzen des Titles via /craftattack settitle."
     default: op
-
   ca.admin.settab:
     description: "Erlaubt das Setzen des Tab-Texts via /craftattack settab."
     default: op
-
   ca.admin.reload:
     description: "Erlaubt das Neuladen der Config via /craftattack reload."
     default: op
-
   ca.admin.invsee:
-    description: "Erlaubt das Sehen (und Bearbeiten) von Inventaren via /craftattack invsee"
+    description: "Erlaubt das Sehen (und Bearbeiten) von Inventaren via /craftattack invsee."
     default: op
-
   ca.admin.pvp.on:
     description: "Erlaubt das Einschalten des PvP-Modus."
     default: op
-
   ca.admin.pvp.off:
     description: "Erlaubt das Ausschalten des PvP-Modus."
     default: op
+  ca.builder.spawn:
+    description: "Erlaubt das Bauen im gesetzten Spawn-Bereich."
+    default: false
