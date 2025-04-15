@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.4"
+version: "1.5"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -42,6 +42,9 @@ permissions:
     default: op
   ca.admin.pvp:
     description: "Erlaubt das Ein- und Ausschalten des PvP-Modus."
+    default: op
+  ca.admin.pregen:
+    description: "Pregenerieren von Cunks"
     default: op
   ca.builder.spawn:
     description: "Erlaubt das Bauen im gesetzten Spawn-Bereich."

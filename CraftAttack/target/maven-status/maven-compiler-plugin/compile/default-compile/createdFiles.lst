@@ -1,3 +1,4 @@
+de\vmoon\craftAttack\commands\PregenCommand$1.class
 de\vmoon\craftAttack\commands\StartCommand.class
 de\vmoon\craftAttack\utils\PvPUtils.class
 de\vmoon\craftAttack\commands\pvpCommand.class
@@ -8,11 +9,9 @@ de\vmoon\craftAttack\commands\CraftAttackCommand.class
 de\vmoon\craftAttack\utils\Metrics$SimplePie.class
 de\vmoon\craftAttack\commands\SetSpawnCommand.class
 de\vmoon\craftAttack\utils\ConfigManager.class
-de\vmoon\craftAttack\commands\InvseeCommand.class
 de\vmoon\craftAttack\utils\Metrics$SingleLineChart.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedBarChart.class
 de\vmoon\craftAttack\listeners\PlayerJoinListener.class
-de\vmoon\craftAttack\listeners\SpawnBoostListener.class
 de\vmoon\craftAttack\utils\Metrics$DrilldownPie.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedPie.class
 de\vmoon\craftAttack\utils\Metrics$SimpleBarChart.class
@@ -21,6 +20,7 @@ de\vmoon\craftAttack\CraftAttack.class
 de\vmoon\craftAttack\utils\JsonColorConverter.class
 de\vmoon\craftAttack\utils\Metrics$MetricsBase.class
 de\vmoon\craftAttack\utils\Metrics$JsonObjectBuilder.class
+de\vmoon\craftAttack\commands\PregenCommand.class
 de\vmoon\craftAttack\commands\ReloadCommand.class
 de\vmoon\craftAttack\listeners\SpawnProtectionListener.class
 de\vmoon\craftAttack\utils\Metrics$CustomChart.class
