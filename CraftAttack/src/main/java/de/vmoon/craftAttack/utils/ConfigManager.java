@@ -55,4 +55,28 @@ public class ConfigManager {
     public boolean isTabTextEnabled() {
         return getConfig().getBoolean("tabtext", true);
     }
+
+    public int getSpawnAreaX1() {
+        return getConfig().getInt("spawnArea.x1", 0);
+    }
+
+    public int getSpawnAreaY1() {
+        return getConfig().getInt("spawnArea.y1", 0);
+    }
+
+    public int getSpawnAreaZ1() {
+        return getConfig().getInt("spawnArea.z1", 0);
+    }
+
+    public int getSpawnAreaX2() {
+        return getConfig().getInt("spawnArea.x2", 0);
+    }
+
+    public int getSpawnAreaY2() {
+        return getConfig().getInt("spawnArea.y2", 0);
+    }
+
+    public int getSpawnAreaZ2() {
+        return getConfig().getInt("spawnArea.z2", 0);
+    }
 }

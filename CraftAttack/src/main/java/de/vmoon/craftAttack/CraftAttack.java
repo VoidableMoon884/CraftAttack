@@ -11,6 +11,7 @@ public final class CraftAttack extends JavaPlugin {
     private static CraftAttack instance;
     private ConfigManager configManager;
     private pvpCommand pvpCmd; // Instanz von pvpCommand hinzufügen
+    private SpawnBoostListener spawnBoostListener;
 
     @Override
     public void onEnable() {
@@ -28,8 +29,20 @@ public final class CraftAttack extends JavaPlugin {
             return;
         }
 
+        // Erstelle und registriere den Elytra-Listener nur, wenn er nicht null ist
+        SpawnBoostListener listener = SpawnBoostListener.create(this);
+        if (listener != null) {
+            getServer().getPluginManager().registerEvents(listener, this);
+            setSpawnBoostListener(listener);
+        } else {
+            getLogger().info("SpawnElytra Feature ist deaktiviert. Kein Listener wird registriert.");
+        }
+
+        // Registriere andere Listener
         getServer().getPluginManager().registerEvents(new SpawnProtectionListener(), this);
-        getServer().getPluginManager().registerEvents(new SpawnSelectionListener(), this);
+
+        // Entferne diese Zeile, da sie den Listener unbeding registriert!
+        // getServer().getPluginManager().registerEvents(SpawnBoostListener.create(this), this);
 
         // Registriere den Hauptbefehl (/craftattack)
         getCommand("craftattack").setExecutor(new CraftAttackCommand());
@@ -68,10 +81,14 @@ public final class CraftAttack extends JavaPlugin {
     public pvpCommand getPvpCmd() {
         return pvpCmd; // Getter für pvpCommand
     }
+    public SpawnBoostListener getSpawnBoostListener() {
+        return spawnBoostListener;
+    }
 
-    /**
-     * Aktualisiert den Tablist-Footer für alle Online-Spieler.
-     */
+    public void setSpawnBoostListener(SpawnBoostListener listener) {
+        this.spawnBoostListener = listener;
+    }
+
     public void updateTabText() {
         String tabJson = getConfig().getString("tab", "{\"text\":\"Default Tab\",\"color\":\"gold\"}");
         String tabText = JsonColorConverter.convertTab(tabJson);

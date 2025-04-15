@@ -12,6 +12,7 @@ de\vmoon\craftAttack\commands\InvseeCommand.class
 de\vmoon\craftAttack\utils\Metrics$SingleLineChart.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedBarChart.class
 de\vmoon\craftAttack\listeners\PlayerJoinListener.class
+de\vmoon\craftAttack\listeners\SpawnBoostListener.class
 de\vmoon\craftAttack\utils\Metrics$DrilldownPie.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedPie.class
 de\vmoon\craftAttack\utils\Metrics$SimpleBarChart.class

@@ -25,6 +25,14 @@ tab: '{"text":"Default Tab","color":"gold"}'
 # Invsee-Feature aktivieren oder deaktivieren
 invsee: true
 
+#Spawn Elytra Configuration
+SpawnElytra:
+  enabled: true
+  multiplyValue: 3
+  boostEnabled: true
+  world: world
+  message: 'Boost ready: Press %key% to boost!'
+
 # Spawn Bereich Koordinaten
 spawnArea:
   x1: 0
