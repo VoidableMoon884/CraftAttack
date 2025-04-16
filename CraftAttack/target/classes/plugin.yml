@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.5"
+version: "1.6"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -17,6 +17,9 @@ commands:
     description: "Schaltet den PvP-Modus ein oder aus."
     usage: /pvp <on|off>
     permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
+  status:
+    description: Zeigt einen konfigurierten Status an.
+    usage: /status <statusname>
 
 permissions:
   ca.admin.start:
@@ -49,3 +52,6 @@ permissions:
   ca.builder.spawn:
     description: "Erlaubt das Bauen im gesetzten Spawn-Bereich."
     default: false
+  ca.user.status:
+    description: "/status für die Benutzer"
+    default: true

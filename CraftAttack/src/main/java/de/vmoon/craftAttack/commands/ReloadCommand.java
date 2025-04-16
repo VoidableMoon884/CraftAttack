@@ -2,6 +2,7 @@ package de.vmoon.craftAttack.commands;
 
 import de.vmoon.craftAttack.CraftAttack;
 import de.vmoon.craftAttack.listeners.SpawnBoostListener;
+import de.vmoon.craftAttack.utils.StatusManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -17,7 +18,16 @@ public class ReloadCommand {
         }
 
         CraftAttack plugin = CraftAttack.getInstance();
+
+        // Standard-Config neu laden
         plugin.reloadConfig();
+        // Zusätzlich: Extra-Konfigurationsdatei neu laden
+        plugin.getConfigManager().reloadExtraConfig();
+
+        // Aktualisiere für alle Online-Spieler ihren Status anhand der neuen (Extra-)Konfiguration
+        Bukkit.getOnlinePlayers().forEach(player -> {
+            StatusManager.getInstance().updatePlayerOnJoin(player);
+        });
 
         // Aktualisiere den Tabtext wie gehabt
         if (plugin.getConfigManager().isTabTextEnabled()) {
@@ -40,8 +50,6 @@ public class ReloadCommand {
             plugin.getServer().getPluginManager().registerEvents(newListener, plugin);
             plugin.setSpawnBoostListener(newListener);
         } else {
-            // Wenn das Feature deaktiviert wurde, alle Spieler, die im Überlebens-/Abenteuermodus sind,
-            // explizit von der Flugberechtigung befreien
             Bukkit.getOnlinePlayers().forEach(player -> {
                 if (player.getGameMode() == GameMode.SURVIVAL || player.getGameMode() == GameMode.ADVENTURE) {
                     player.setAllowFlight(false);

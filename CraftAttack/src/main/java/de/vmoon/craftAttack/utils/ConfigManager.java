@@ -1,24 +1,63 @@
 package de.vmoon.craftAttack.utils;
 
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * Konfigurationsmanager, der die Hauptkonfiguration (config.yml)
+ * sowie eine separate Extra-Konfigurationsdatei (z. B. playerstatuses.yml)
+ * verwaltet. Beim ersten Start wird die Datei aus dem JAR übernommen.
+ * Beim Neustart werden nur neue Schlüssel ergänzt, während benutzerdefinierte Werte
+ * erhalten bleiben.
+ */
 public class ConfigManager {
     private final JavaPlugin plugin;
+    private FileConfiguration config;
+
+    // Extra-Konfiguration (zum Beispiel für persistente Daten wie Spielerstatus)
+    private FileConfiguration extraConfig;
+    private File extraFile;
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
-        // Kopiere die Default-Config (aus dem Jar) ins Pluginverzeichnis, falls sie noch nicht vorhanden ist
-        plugin.saveDefaultConfig();
-        // Ergänze vorhandene Config um fehlende Schlüssel
-        plugin.getConfig().options().copyDefaults(true);
-        plugin.saveConfig();
+
+        // Hauptconfig: Wenn noch keine config.yml existiert, wird sie aus dem JAR kopiert.
+        File configFile = new File(plugin.getDataFolder(), "config.yml");
+        if (!configFile.exists()) {
+            plugin.saveDefaultConfig();
+        }
+        // Lade die bestehende config.yml
+        config = YamlConfiguration.loadConfiguration(configFile);
+
+        // Lade die internen Defaults aus der im Plugin-JAR enthaltenen config.yml,
+        // um neue Schlüssel zu ergänzen, ohne bestehende Werte zu überschreiben.
+        InputStreamReader defaults = new InputStreamReader(plugin.getResource("config.yml"), StandardCharsets.UTF_8);
+        if (defaults != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defaults);
+            config.setDefaults(defConfig);
+            config.options().copyDefaults(true);
+            try {
+                config.save(configFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Erstelle und lade die Extra-Konfiguration (zum Beispiel playerstatuses.yml)
+        createExtraConfig("playerstatuses.yml");
     }
 
+    // Hauptkonfiguration abrufen
     public FileConfiguration getConfig() {
-        return plugin.getConfig();
+        return config;
     }
 
+    // Beispielhafte Getter-Methoden für Werte der Hauptkonfiguration
     public double getInitialBorder() {
         return getConfig().getDouble("worldborder.initial", 100.0);
     }
@@ -51,7 +90,7 @@ public class ConfigManager {
         return getConfig().getString("welcome", "&aWillkommen auf CraftAttack! Viel Spaß beim Spiel!");
     }
 
-    // Neuer Wert: Ist die Tabtext-Funktionalität aktiviert?
+    // Neuer Wert: Gibt an, ob der Tabtext aktiviert ist.
     public boolean isTabTextEnabled() {
         return getConfig().getBoolean("tabtext", true);
     }
@@ -78,5 +117,61 @@ public class ConfigManager {
 
     public int getSpawnAreaZ2() {
         return getConfig().getInt("spawnArea.z2", 0);
+    }
+
+    // Methoden für die Extra-Konfiguration (z. B. playerstatuses.yml)
+
+    /**
+     * Gibt die Extra-Konfiguration zurück. Falls diese noch nicht geladen wurde,
+     * wird sie neu eingelesen.
+     */
+    public FileConfiguration getExtraConfig() {
+        if (extraConfig == null) {
+            reloadExtraConfig();
+        }
+        return extraConfig;
+    }
+
+    /**
+     * Lädt die Extra-Konfigurationsdatei neu.
+     */
+    public void reloadExtraConfig() {
+        if (extraFile != null) {
+            extraConfig = YamlConfiguration.loadConfiguration(extraFile);
+        }
+    }
+
+    /**
+     * Erstellt und lädt die Extra-Konfiguration (zum Beispiel playerstatuses.yml).
+     * Falls die Datei nicht existiert, wird versucht, sie aus den Ressourcen zu kopieren.
+     *
+     * @param fileName der Name der Extra-Datei, z. B. "playerstatuses.yml"
+     */
+    private void createExtraConfig(String fileName) {
+        extraFile = new File(plugin.getDataFolder(), fileName);
+        if (!extraFile.exists()) {
+            try {
+                extraFile.getParentFile().mkdirs();
+                // Kopiere die Datei aus dem JAR in das Plugin-Verzeichnis (falls vorhanden)
+                plugin.saveResource(fileName, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        extraConfig = YamlConfiguration.loadConfiguration(extraFile);
+        plugin.getLogger().info("Extra config geladen: " + (extraConfig != null));
+    }
+
+    /**
+     * Speichert die Extra-Konfiguration in die Datei.
+     */
+    public void saveExtraConfig() {
+        if (extraConfig != null && extraFile != null) {
+            try {
+                extraConfig.save(extraFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

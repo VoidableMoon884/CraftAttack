@@ -41,3 +41,8 @@ spawnArea:
   x2: 0
   y2: 0
   z2: 0
+
+# Statusdefinitionen
+statuses:
+  example1: '{"text":"example1", "color":"green", "bold":true}'
+  example2: '{"text":"example2", "color":"red"}'

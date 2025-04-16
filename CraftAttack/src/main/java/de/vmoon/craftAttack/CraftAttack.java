@@ -22,12 +22,19 @@ public final class CraftAttack extends JavaPlugin {
         int pluginId = 25435;
         new Metrics(this, pluginId);
 
+
         // Überprüfe, ob der Befehl "craftattack" registriert wurde
         if (getCommand("craftattack") == null) {
             getLogger().severe("Der Befehl 'craftattack' wurde nicht in der plugin.yml gefunden!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+
+        StatusManager.init(this, configManager);
+        StatusCommand statusCommand = new StatusCommand(this);
+        getCommand("status").setExecutor(statusCommand);
+        getCommand("status").setTabCompleter(statusCommand);
+
 
         // Erstelle und registriere den Elytra-Listener nur, wenn er nicht null ist
         SpawnBoostListener listener = SpawnBoostListener.create(this);
@@ -40,6 +47,7 @@ public final class CraftAttack extends JavaPlugin {
 
         // Registriere andere Listener
         getServer().getPluginManager().registerEvents(new SpawnProtectionListener(), this);
+        getServer().getPluginManager().registerEvents(new ChatListener(), this);
 
         // Entferne diese Zeile, da sie den Listener unbeding registriert!
         // getServer().getPluginManager().registerEvents(SpawnBoostListener.create(this), this);
