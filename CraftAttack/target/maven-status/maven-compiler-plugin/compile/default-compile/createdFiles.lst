@@ -18,6 +18,7 @@ de\vmoon\craftAttack\utils\Metrics$DrilldownPie.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedPie.class
 de\vmoon\craftAttack\utils\Metrics$SimpleBarChart.class
 de\vmoon\craftAttack\commands\SetTextsCommand.class
+de\vmoon\craftAttack\commands\VanishCommand.class
 de\vmoon\craftAttack\commands\StatusCommand.class
 de\vmoon\craftAttack\CraftAttack.class
 de\vmoon\craftAttack\utils\JsonColorConverter.class

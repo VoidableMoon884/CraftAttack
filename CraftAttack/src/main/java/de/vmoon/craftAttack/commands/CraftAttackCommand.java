@@ -56,6 +56,8 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             return new SetSpawnCommand().onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("pregen")) {
             return new PregenCommand(CraftAttack.getInstance()).onCommand(sender, command, label, args);
+        } else if (sub.equals("vanish")) {
+            return new VanishCommand(CraftAttack.getInstance()).onCommand(sender, command, label, args);
         } else if (sub.equals("invsee")) {
             if (!CraftAttack.getInstance().getConfigManager().getConfig().getBoolean("invsee", false)) {
                 sender.sendMessage("§cDer invsee-Befehl ist derzeit deaktiviert.");
@@ -94,6 +96,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             }
             if (CraftAttack.getInstance().getConfigManager().isTabTextEnabled() && sender.hasPermission("ca.admin.settab")) {
                 subs.add("settab");
+            }
+            if (sender.hasPermission("ca.vanish")) {
+                subs.add("vanish");
             }
             if (sender.hasPermission("ca.admin.reload")) {
                 subs.add("reload");

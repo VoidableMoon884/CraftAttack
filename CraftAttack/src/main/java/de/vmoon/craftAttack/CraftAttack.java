@@ -34,6 +34,7 @@ public final class CraftAttack extends JavaPlugin {
         StatusCommand statusCommand = new StatusCommand(this);
         getCommand("status").setExecutor(statusCommand);
         getCommand("status").setTabCompleter(statusCommand);
+        getCommand("vanish").setExecutor(new VanishCommand(this));
 
 
         // Erstelle und registriere den Elytra-Listener nur, wenn er nicht null ist

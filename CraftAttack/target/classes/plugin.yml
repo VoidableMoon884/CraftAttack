@@ -13,6 +13,10 @@ commands:
     permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
     aliases:
       - ca
+  vanish:
+    description: Schaltet deinen Vanish-Modus um.
+    usage: /vanish
+    permission: ca.vanish
   pvp:
     description: "Schaltet den PvP-Modus ein oder aus."
     usage: /pvp <on|off>
@@ -55,3 +59,6 @@ permissions:
   ca.user.status:
     description: "/status für die Benutzer"
     default: true
+
+depend:
+  - ProtocolLib
