@@ -54,8 +54,10 @@ public class pvpCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender commandSender, Command command, String alias, String[] args) {
         if (args.length == 1) {
             List<String> completions = new ArrayList<>();
-            completions.add("on");
-            completions.add("off");
+            if (commandSender.hasPermission("ca.admin.pvp")) {
+                completions.add("on");
+                completions.add("off");
+            }
             return completions.stream()
                     .filter(s -> s.startsWith(args[0]))
                     .collect(Collectors.toList());
