@@ -8,65 +8,77 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CraftAttack extends JavaPlugin {
 
-    private static CraftAttack instance;
-    private ConfigManager configManager;
-    private pvpCommand pvpCmd; // Instanz von pvpCommand hinzufügen
-    private SpawnBoostListener spawnBoostListener;
+    private static CraftAttack       instance;
+    private ConfigManager            configManager;
+    private pvpCommand               pvpCmd;
+    private SpawnBoostListener       spawnBoostListener;
+    private WebServer                webServer;
 
     @Override
     public void onEnable() {
         instance = this;
+
+        // 1. Config laden
         configManager = new ConfigManager(this);
 
-        // Metrics initialisieren (falls genutzt)
+        // 2. Metrics initialisieren (falls genutzt)
         int pluginId = 25435;
         new Metrics(this, pluginId);
 
+        // 3. HTTP-Server nur starten, wenn API oder Webserver aktiviert sind
+        boolean apiEnabled   = configManager.isApiEnabled();
+        boolean webUiEnabled = configManager.isWebServerEnabled();
+        if (apiEnabled || webUiEnabled) {
+            int port = configManager.getServerPort();
+            webServer = new WebServer(this, port);
+            webServer.start();
+            getLogger().info("HTTP-Server läuft auf Port " + port);
 
-        // Überprüfe, ob der Befehl "craftattack" registriert wurde
+            if (apiEnabled)   getLogger().info("JSON-API aktiviert (Endpoint: /api)");
+            if (webUiEnabled) getLogger().info("Web-Interface aktiviert (Endpoint: /)");
+
+        } else {
+            getLogger().info("Weder API noch Webserver aktiviert – HTTP-Server wird nicht gestartet.");
+        }
+
+        // 4. craftattack-Befehl registrieren
         if (getCommand("craftattack") == null) {
             getLogger().severe("Der Befehl 'craftattack' wurde nicht in der plugin.yml gefunden!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        CraftAttackCommand mainCmd = new CraftAttackCommand();
+        getCommand("craftattack").setExecutor(mainCmd);
+        getCommand("craftattack").setTabCompleter(mainCmd);
 
+        // 5. status-Command registrieren
         StatusManager.init(this, configManager);
         StatusCommand statusCommand = new StatusCommand(this);
         getCommand("status").setExecutor(statusCommand);
         getCommand("status").setTabCompleter(statusCommand);
-        getCommand("vanish").setExecutor(new VanishCommand(this));
 
-
-        // Erstelle und registriere den Elytra-Listener nur, wenn er nicht null ist
+        // 6. SpawnBoostListener optional registrieren
         SpawnBoostListener listener = SpawnBoostListener.create(this);
         if (listener != null) {
             getServer().getPluginManager().registerEvents(listener, this);
             setSpawnBoostListener(listener);
         } else {
-            getLogger().info("SpawnElytra Feature ist deaktiviert. Kein Listener wird registriert.");
+            getLogger().info("SpawnElytra-Feature deaktiviert. Kein Listener registriert.");
         }
 
-        // Registriere andere Listener
+        // 7. Weitere Listener
         getServer().getPluginManager().registerEvents(new SpawnProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 
-        // Entferne diese Zeile, da sie den Listener unbeding registriert!
-        // getServer().getPluginManager().registerEvents(SpawnBoostListener.create(this), this);
-
-        // Registriere den Hauptbefehl (/craftattack)
-        getCommand("craftattack").setExecutor(new CraftAttackCommand());
-        getCommand("craftattack").setTabCompleter(new CraftAttackCommand());
-
-        // Initialisiere die pvpCommand Instanz und registriere den "pvp"-Befehl
+        // 8. pvp-Command registrieren
         pvpCmd = new pvpCommand();
         if (getCommand("pvp") != null) {
             getCommand("pvp").setExecutor(pvpCmd);
+            getCommand("pvp").setTabCompleter(pvpCmd);
         }
 
-        // Registriere den Listener, der neuen Spielern den Tab-Text setzt
-        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
-
-        // Setze beim Start für alle Online-Spieler den Tablist-Footer, falls aktiviert
+        // 9. Tab-Text direkt setzen, falls aktiviert
         if (configManager.isTabTextEnabled()) {
             updateTabText();
         }
@@ -76,9 +88,16 @@ public final class CraftAttack extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic (falls benötigt)
+        // HTTP-Server sauber stoppen
+        if (webServer != null) {
+            webServer.stop();
+            getLogger().info("HTTP-Server gestoppt.");
+        }
     }
 
+    /**
+     * Liefert die Plugin-Instanz.
+     */
     public static CraftAttack getInstance() {
         return instance;
     }
@@ -88,8 +107,9 @@ public final class CraftAttack extends JavaPlugin {
     }
 
     public pvpCommand getPvpCmd() {
-        return pvpCmd; // Getter für pvpCommand
+        return pvpCmd;
     }
+
     public SpawnBoostListener getSpawnBoostListener() {
         return spawnBoostListener;
     }
@@ -98,10 +118,27 @@ public final class CraftAttack extends JavaPlugin {
         this.spawnBoostListener = listener;
     }
 
+    /**
+     * Setzt den Tab-Text für alle Online-Spieler.
+     */
     public void updateTabText() {
-        String tabJson = getConfig().getString("tab", "{\"text\":\"Default Tab\",\"color\":\"gold\"}");
+        String tabJson = configManager.getConfig()
+                .getString("tab", "{\"text\":\"Default Tab\",\"color\":\"gold\"}");
         String tabText = JsonColorConverter.convertTab(tabJson);
-        Bukkit.getOnlinePlayers().forEach(p -> p.setPlayerListHeaderFooter("", tabText));
+        Bukkit.getOnlinePlayers().forEach(p ->
+                p.setPlayerListHeaderFooter("", tabText)
+        );
         getLogger().info("Tab-Text wurde aktualisiert.");
+    }
+
+    /**
+     * Löst einen Server-Neustart aus.
+     * Ruft Bukkit.shutdown() auf,
+     * sodass externe Startskripte den Server wieder hochfahren können.
+     */
+    public void restartServer() {
+        getLogger().info("Starte Server-Neustart...");
+        // Shutdown im Haupt-Thread durchführen
+        Bukkit.getScheduler().runTask(this, Bukkit::shutdown);
     }
 }

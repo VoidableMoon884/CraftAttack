@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Whitelist Manager</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<h1>Whitelist Manager</h1>
+
+<section id="add">
+    <h2>Spieler hinzufügen</h2>
+    <form method="post" action="/add">
+        <label for="custom">Benutzerdefiniert:</label>
+        <input type="text" id="custom" name="custom" placeholder="Spielername" required>
+        <button type="submit">Hinzufügen</button>
+    </form>
+</section>
+
+<hr>
+
+<section id="current">
+    <h2>Aktuelle Whitelist</h2>
+    <ul>
+        {{LIST_WHITELISTED}}
+    </ul>
+</section>
+</body>
+</html>

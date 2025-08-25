@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 1em;
+  background: #f4f4f9;
+  color: #333;
+}
+
+h1, h2 {
+  color: #444;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 0.5em 0;
+}
+
+button {
+  padding: 0.5em 1em;
+  background: #0066cc;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005bb5;
+}
+
+hr {
+  margin: 2em 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}

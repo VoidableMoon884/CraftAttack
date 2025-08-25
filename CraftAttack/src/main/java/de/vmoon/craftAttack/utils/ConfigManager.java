@@ -174,4 +174,24 @@ public class ConfigManager {
             }
         }
     }
+    /**
+     * Gibt zurück, ob die JSON-API aktiviert ist.
+     */
+    public boolean isApiEnabled() {
+        return getConfig().getBoolean("enable_api", false);
+    }
+
+    /**
+     * Gibt zurück, ob das statische Web-Interface aktiviert ist.
+     */
+    public boolean isWebServerEnabled() {
+        return getConfig().getBoolean("enable_webserver", false);
+    }
+
+    /**
+     * Lies den konfigurierten Server-Port aus.
+     */
+    public int getServerPort() {
+        return getConfig().getInt("server.port", 8020);
+    }
 }

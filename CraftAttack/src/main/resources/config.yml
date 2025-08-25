@@ -46,3 +46,9 @@ spawnArea:
 statuses:
   example1: '{"text":"example1", "color":"green", "bold":true}'
   example2: '{"text":"example2", "color":"red"}'
+
+# Webdienste
+server:
+  port: 8020
+enable_api: false
+enable_webserver: false
