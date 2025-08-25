@@ -24,7 +24,7 @@ Additional Features:
 - Spawn elytra (if enabled) beginning in SpawnArea
 - Webserver & JSON-Api
 
-### Api (new):
+### Api:
 Running on port 8020
 
 http://localhost:8020/api/COMMAND?action=ACTION&addition=...
