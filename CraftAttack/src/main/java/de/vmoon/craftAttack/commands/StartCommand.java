@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class StartCommand {
@@ -94,9 +95,10 @@ public class StartCommand {
                 sender.sendMessage(ChatColor.RED + "Du hast keine Berechtigung!");
                 return true;
             }
-            double teleportX = config.getTeleportX();
-            double teleportY = config.getTeleportY();
-            double teleportZ = config.getTeleportZ();
+            FileConfiguration Fileconfig = CraftAttack.getInstance().getConfig();
+            double teleportX = Fileconfig.getDouble("teleport.x", 0);
+            double teleportY = Fileconfig.getDouble("teleport.y", 0);
+            double teleportZ = Fileconfig.getDouble("teleport.z", 0);
             Location loc = new Location(world, teleportX, teleportY, teleportZ);
             Bukkit.getOnlinePlayers().forEach(p -> p.teleport(loc));
             sender.sendMessage(ChatColor.GREEN + "Alle Spieler wurden zu den festgelegten Koordinaten teleportiert!");

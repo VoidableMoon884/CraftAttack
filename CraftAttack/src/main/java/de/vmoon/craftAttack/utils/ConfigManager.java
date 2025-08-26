@@ -8,13 +8,6 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-/**
- * Konfigurationsmanager, der die Hauptkonfiguration (config.yml)
- * sowie eine separate Extra-Konfigurationsdatei (z. B. playerstatuses.yml)
- * verwaltet. Beim ersten Start wird die Datei aus dem JAR übernommen.
- * Beim Neustart werden nur neue Schlüssel ergänzt, während benutzerdefinierte Werte
- * erhalten bleiben.
- */
 public class ConfigManager {
     private final JavaPlugin plugin;
     private FileConfiguration config;
@@ -93,30 +86,6 @@ public class ConfigManager {
     // Neuer Wert: Gibt an, ob der Tabtext aktiviert ist.
     public boolean isTabTextEnabled() {
         return getConfig().getBoolean("tabtext", true);
-    }
-
-    public int getSpawnAreaX1() {
-        return getConfig().getInt("spawnArea.x1", 0);
-    }
-
-    public int getSpawnAreaY1() {
-        return getConfig().getInt("spawnArea.y1", 0);
-    }
-
-    public int getSpawnAreaZ1() {
-        return getConfig().getInt("spawnArea.z1", 0);
-    }
-
-    public int getSpawnAreaX2() {
-        return getConfig().getInt("spawnArea.x2", 0);
-    }
-
-    public int getSpawnAreaY2() {
-        return getConfig().getInt("spawnArea.y2", 0);
-    }
-
-    public int getSpawnAreaZ2() {
-        return getConfig().getInt("spawnArea.z2", 0);
     }
 
     // Methoden für die Extra-Konfiguration (z. B. playerstatuses.yml)
