@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.9.1"
+version: "1.9.3"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -36,6 +36,9 @@ permissions:
     default: op
   ca.admin.settab:
     description: "Erlaubt das Setzen des Tab-Texts via /craftattack settab."
+    default: op
+  ca.admin.spawn:
+    description: "Erlaubt das Setzen des Spawn-Punkts und Bereichs"
     default: op
   ca.admin.reload:
     description: "Erlaubt das Neuladen der Config via /craftattack reload."

@@ -5,7 +5,6 @@ de\vmoon\craftAttack\commands\pvpCommand.class
 de\vmoon\craftAttack\utils\WebServer.class
 de\vmoon\craftAttack\utils\StatusManager.class
 de\vmoon\craftAttack\utils\Metrics.class
-de\vmoon\craftAttack\listeners\SpawnSelectionListener.class
 de\vmoon\craftAttack\utils\Metrics$MultiLineChart.class
 de\vmoon\craftAttack\commands\CraftAttackCommand.class
 de\vmoon\craftAttack\utils\Metrics$SimplePie.class
