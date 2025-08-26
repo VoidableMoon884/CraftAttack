@@ -8,13 +8,6 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-/**
- * Konfigurationsmanager, der die Hauptkonfiguration (config.yml)
- * sowie eine separate Extra-Konfigurationsdatei (z. B. playerstatuses.yml)
- * verwaltet. Beim ersten Start wird die Datei aus dem JAR übernommen.
- * Beim Neustart werden nur neue Schlüssel ergänzt, während benutzerdefinierte Werte
- * erhalten bleiben.
- */
 public class ConfigManager {
     private final JavaPlugin plugin;
     private FileConfiguration config;
@@ -193,14 +186,5 @@ public class ConfigManager {
      */
     public int getServerPort() {
         return getConfig().getInt("server.port", 8020);
-    }
-    public void saveConfig() {
-        try {
-            File configFile = new File(plugin.getDataFolder(), "config.yml");
-            config.save(configFile);
-        } catch (Exception e) {
-            plugin.getLogger().severe("Fehler beim Speichern der config.yml");
-            e.printStackTrace();
-        }
     }
 }
