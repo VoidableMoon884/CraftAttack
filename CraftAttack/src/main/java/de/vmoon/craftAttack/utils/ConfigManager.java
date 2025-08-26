@@ -194,4 +194,13 @@ public class ConfigManager {
     public int getServerPort() {
         return getConfig().getInt("server.port", 8020);
     }
+    public void saveConfig() {
+        try {
+            File configFile = new File(plugin.getDataFolder(), "config.yml");
+            config.save(configFile);
+        } catch (Exception e) {
+            plugin.getLogger().severe("Fehler beim Speichern der config.yml");
+            e.printStackTrace();
+        }
+    }
 }

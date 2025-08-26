@@ -1,7 +1,5 @@
 package de.vmoon.craftAttack.commands;
 
-import de.vmoon.craftAttack.CraftAttack;
-import de.vmoon.craftAttack.utils.PvPUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -12,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class SetSpawnCommand implements CommandExecutor {
-
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // Berechtigungsprüfung

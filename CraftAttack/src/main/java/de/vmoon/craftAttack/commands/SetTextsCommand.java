@@ -1,5 +1,8 @@
 package de.vmoon.craftAttack.commands;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import de.vmoon.craftAttack.CraftAttack;
 import de.vmoon.craftAttack.utils.JsonColorConverter;
 import org.bukkit.Bukkit;
@@ -34,18 +37,40 @@ public class SetTextsCommand {
                 sender.sendMessage(ChatColor.RED + "Die Tabtext-Funktion ist in der Config deaktiviert.");
                 return true;
             }
+
+            // Berechtigungsprüfung
             if (!sender.hasPermission("ca.admin.settab")) {
                 sender.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, den Tab-Text zu setzen!");
                 return true;
             }
+
+            // JSON-Validierung mit Gson
+            try {
+                JsonObject json = JsonParser.parseString(newJson).getAsJsonObject();
+
+                // Optional: Überprüfe, ob die erwarteten Keys vorhanden sind
+                if (!json.has("color") || !json.has("text")) {
+                    sender.sendMessage(ChatColor.RED + "Ungültiges Format! Erwartet wird z.B. {\"color\":\"red\",\"text\":\"hi\"}");
+                    return true;
+                }
+
+            } catch (JsonSyntaxException | IllegalStateException e) {
+                sender.sendMessage(ChatColor.RED + "Ungültiges JSON! Bitte gib ein korrektes JSON-Format an.");
+                return true;
+            }
+
+            // Speichern und Anwenden des neuen Tab-Texts
             CraftAttack.getInstance().getConfig().set("tab", newJson);
             CraftAttack.getInstance().saveConfig();
+
             // Aktualisiere den Tablist-Footer für alle Spieler (Header bleibt leer)
             String tabText = JsonColorConverter.convertTab(newJson);
             Bukkit.getOnlinePlayers().forEach(p -> p.setPlayerListHeaderFooter("", tabText));
+
             sender.sendMessage(ChatColor.GREEN + "Tab-Text erfolgreich aktualisiert!");
             return true;
         }
+
         sender.sendMessage(ChatColor.RED + "Ungültiger Sub-Befehl. Usage: settitle|settab");
         return true;
     }
