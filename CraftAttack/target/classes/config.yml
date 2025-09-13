@@ -27,7 +27,7 @@ invsee: true
 
 #Spawn Elytra Configuration
 SpawnElytra:
-  enabled: true
+  enabled: false
   multiplyValue: 3
   boostEnabled: true
   world: world
@@ -50,5 +50,24 @@ statuses:
 # Webdienste
 server:
   port: 8020
-enable_api: false
 enable_webserver: false
+enable_api: false
+
+# Spawn-Teleporter
+SpawnTeleporter:
+  enabled: false
+  region:
+    world: "world"
+    x1: 100
+    y1: 64
+    z1: 100
+    x2: 130
+    y2: 80
+    z2: 130
+  delay: 3
+  teleport:
+    world: "world"
+    x: 200
+    y: 70
+    z: 200
+  sound: "ENTITY_ENDERMAN_TELEPORT"

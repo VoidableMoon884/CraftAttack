@@ -13,6 +13,7 @@ public final class CraftAttack extends JavaPlugin {
     private pvpCommand               pvpCmd;
     private SpawnBoostListener       spawnBoostListener;
     private WebServer                webServer;
+    private SpawnTeleporterListener spawnTeleporterListener;
 
     @Override
     public void onEnable() {
@@ -56,6 +57,10 @@ public final class CraftAttack extends JavaPlugin {
         StatusCommand statusCommand = new StatusCommand(this);
         getCommand("status").setExecutor(statusCommand);
         getCommand("status").setTabCompleter(statusCommand);
+
+
+        spawnTeleporterListener = new SpawnTeleporterListener(this, configManager);
+        getServer().getPluginManager().registerEvents(spawnTeleporterListener, this);
 
         // 6. SpawnBoostListener optional registrieren
         SpawnBoostListener listener = SpawnBoostListener.create(this);
@@ -141,4 +146,12 @@ public final class CraftAttack extends JavaPlugin {
         // Shutdown im Haupt-Thread durchführen
         Bukkit.getScheduler().runTask(this, Bukkit::shutdown);
     }
+    public SpawnTeleporterListener getSpawnTeleporterListener() {
+        return spawnTeleporterListener;
+    }
+
+    public void setSpawnTeleporterListener(SpawnTeleporterListener listener) {
+        this.spawnTeleporterListener = listener;
+    }
+
 }

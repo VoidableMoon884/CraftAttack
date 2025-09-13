@@ -12,10 +12,12 @@ S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\PlayerJoinListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnBoostListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnProtectionListener.java
+S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnTeleporterListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\ConfigManager.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\JsonColorConverter.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\Metrics.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\PvPUtils.java
+S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\SpawnTeleporterData.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\StatusManager.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\utils\WebServer.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\webserver\ManagementHandler.java

@@ -1,8 +1,8 @@
 package de.vmoon.craftAttack.commands;
 
 import de.vmoon.craftAttack.CraftAttack;
-import de.vmoon.craftAttack.listeners.SpawnBoostListener;
-import de.vmoon.craftAttack.utils.StatusManager;
+import de.vmoon.craftAttack.listeners.*;
+import de.vmoon.craftAttack.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -23,6 +23,14 @@ public class ReloadCommand {
         plugin.reloadConfig();
         // Zusätzlich: Extra-Konfigurationsdatei neu laden
         plugin.getConfigManager().reloadExtraConfig();
+
+        if (plugin.getSpawnTeleporterListener() != null) {
+            HandlerList.unregisterAll(plugin.getSpawnTeleporterListener());
+        }
+
+        SpawnTeleporterListener newSpawnTeleportListener = new SpawnTeleporterListener(plugin, plugin.getConfigManager());
+        plugin.getServer().getPluginManager().registerEvents(newSpawnTeleportListener, plugin);
+        plugin.setSpawnTeleporterListener(newSpawnTeleportListener);
 
         // Aktualisiere für alle Online-Spieler ihren Status anhand der neuen (Extra-)Konfiguration
         Bukkit.getOnlinePlayers().forEach(player -> {
