@@ -21,13 +21,37 @@ pregen | ca.admin.pregen | op | Pregenerates chunks in defined number of blocks
 
 Additional Features:
 - Spawn protection in SpawnArea
-- Spawn elytra (if enabled) beginning in SpawnArea
+- Spawn elytra (if enabled) beginning in SpawnArea 
+- Spawn-Teleporter
 - Webserver & JSON-Api
 
-### Api:
-Running on port 8020
+## A deeper look into the features:
 
-http://localhost:8020/api/COMMAND?action=ACTION&addition=...
+### Spawnprotection
+- You can set the coordinates and radius with /ca setspawn <x> <y> <z> <radius>
+- or set the edge coordinates in the config
+
+### Spawn elytra
+- can be enabled/disabled in the config
+- you can enable a boost which is triggerd by the "spaw offhand" keybind
+- you can change the boost multiplyValue in the config
+- you can set a radius in which the boost can be activated
+
+### Webserver and API
+- you can enable/disable and change the port of both in the config
+
+### Spawn teleporter
+**IMPORTANT**: You have to restart the server for the changes to get reloaded.
+- you can enable/disable the feature in the config
+- you can play a sound when the player is being teleported
+- you have to set the coordinates (x1, y1, z1, x2, y2, z3) in the config
+- you can set a delay which the player has to wait until he gets teleported
+- you have to set the coordinates where the player gets teleported to
+
+
+#### API:
+
+**URL**: http://localhost:8020/api/COMMAND?action=ACTION&addition=...
 
 COMMAND:
 - whitelist
@@ -64,7 +88,9 @@ http://localhost:8020/api/management?action=ban&name=VoidableMoon884&reason=REAS
 http://localhost:8020/api/management?action=unban&name=VoidableMoon884|{"status":"ok","message":"Spieler VoidableMoon884 wurde entbannt."}
 http://localhost:8020/api/management?action=kick&name=VoidableMoon884|{"status":"error","message":"Spieler VoidableMoon884 ist nicht online."}
 
-### Download:
+
+## Download:
+
 [Modrinth](https://modrinth.com/plugin/simple-craftattack#download)
 
 [Github](https://github.com/VoidableMoon884/CraftAttack)

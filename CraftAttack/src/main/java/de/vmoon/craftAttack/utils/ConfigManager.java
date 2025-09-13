@@ -163,4 +163,28 @@ public class ConfigManager {
     public int getServerPort() {
         return getConfig().getInt("server.port", 8020);
     }
+
+    public SpawnTeleporterData getSpawnTeleporterData() {
+        FileConfiguration config = getConfig();
+        boolean enabled = config.getBoolean("SpawnTeleporter.enabled", true);
+        String regionWorld = config.getString("SpawnTeleporter.region.world", "world");
+        String sound = config.getString("SpawnTeleporter.sound", "ENTITY_ENDERMAN_TELEPORT");
+        int x1 = config.getInt("SpawnTeleporter.region.x1", 0);
+        int y1 = config.getInt("SpawnTeleporter.region.y1", 0);
+        int z1 = config.getInt("SpawnTeleporter.region.z1", 0);
+        int x2 = config.getInt("SpawnTeleporter.region.x2", 0);
+        int y2 = config.getInt("SpawnTeleporter.region.y2", 0);
+        int z2 = config.getInt("SpawnTeleporter.region.z2", 0);
+        int delay = config.getInt("SpawnTeleporter.delay", 5);
+        String teleportWorld = config.getString("SpawnTeleporter.teleport.world", "world");
+        double teleX = config.getDouble("SpawnTeleporter.teleport.x", 0.0);
+        double teleY = config.getDouble("SpawnTeleporter.teleport.y", 64.0);
+        double teleZ = config.getDouble("SpawnTeleporter.teleport.z", 0.0);
+
+        return new SpawnTeleporterData(
+                enabled, regionWorld, x1, y1, z1, x2, y2, z2,
+                delay, teleportWorld, teleX, teleY, teleZ,
+                sound
+        );
+    }
 }
