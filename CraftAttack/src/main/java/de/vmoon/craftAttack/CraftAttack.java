@@ -14,6 +14,7 @@ public final class CraftAttack extends JavaPlugin {
     private SpawnBoostListener       spawnBoostListener;
     private WebServer                webServer;
     private SpawnTeleporterListener spawnTeleporterListener;
+    private MotdListener motdListener;
 
     @Override
     public void onEnable() {
@@ -61,6 +62,11 @@ public final class CraftAttack extends JavaPlugin {
 
         spawnTeleporterListener = new SpawnTeleporterListener(this, configManager);
         getServer().getPluginManager().registerEvents(spawnTeleporterListener, this);
+
+        // MOTD-Listener erstellen und registrieren
+        motdListener = new MotdListener(getConfigManager());
+        getServer().getPluginManager().registerEvents(motdListener, this);
+
 
         // 6. SpawnBoostListener optional registrieren
         SpawnBoostListener listener = SpawnBoostListener.create(this);
@@ -152,6 +158,14 @@ public final class CraftAttack extends JavaPlugin {
 
     public void setSpawnTeleporterListener(SpawnTeleporterListener listener) {
         this.spawnTeleporterListener = listener;
+    }
+
+    public MotdListener getMotdListener() {
+        return motdListener;
+    }
+
+    public void setMotdListener(MotdListener listener) {
+        this.motdListener = listener;
     }
 
 }

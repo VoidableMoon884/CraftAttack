@@ -9,6 +9,7 @@ S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\commands\StatusCommand.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\CraftAttack.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\ChatListener.java
+S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\MotdListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\PlayerJoinListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnBoostListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnProtectionListener.java
