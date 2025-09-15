@@ -45,6 +45,20 @@ public class ReloadCommand {
             plugin.getLogger().info("Tab-Text ist deaktiviert – daher wurde der Tabtext gelöscht.");
         }
 
+        // Alten MOTD-Listener abmelden, falls vorhanden
+        if (plugin.getMotdListener() != null) {
+            HandlerList.unregisterAll(plugin.getMotdListener());
+        }
+
+// Neuen MOTD-Listener anhand der neuen Konfiguration erzeugen
+        MotdListener newMotdListener = new MotdListener(plugin.getConfigManager());
+        plugin.getServer().getPluginManager().registerEvents(newMotdListener, plugin);
+        plugin.setMotdListener(newMotdListener); // Setter-Methode im Plugin hinzufügen
+
+// Optional: Reload-Methode innerhalb des Listeners aufrufen
+        newMotdListener.reloadMotds();
+
+
         // Alten Elytra-Listener abmelden, falls vorhanden
         if (plugin.getSpawnBoostListener() != null) {
             HandlerList.unregisterAll(plugin.getSpawnBoostListener());

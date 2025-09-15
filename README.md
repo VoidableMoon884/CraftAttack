@@ -23,6 +23,7 @@ Additional Features:
 - Spawn protection in SpawnArea
 - Spawn elytra (if enabled) beginning in SpawnArea 
 - Spawn-Teleporter
+- Changing MOTD
 - Webserver & JSON-Api
 
 ## A deeper look into the features:
@@ -48,6 +49,11 @@ Additional Features:
 - you can set a delay which the player has to wait until he gets teleported
 - you have to set the coordinates where the player gets teleported to
 
+### Changing MOTD
+**IMPORTANT**: You have to restart the server for the changes to get reloaded.
+- you can set different MOTDs in the config
+- example: \u00a7aCraftAttack13 \u00a76community\u00a7r\n\u00a7bOfficial start!
+- It is normal that after a restart the format is a bit strage.
 
 #### API:
 

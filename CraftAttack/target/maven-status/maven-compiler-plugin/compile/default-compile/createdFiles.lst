@@ -12,6 +12,7 @@ de\vmoon\craftAttack\utils\Metrics$SimplePie.class
 de\vmoon\craftAttack\listeners\SpawnTeleporterListener$1.class
 de\vmoon\craftAttack\commands\SetSpawnCommand.class
 de\vmoon\craftAttack\utils\ConfigManager.class
+de\vmoon\craftAttack\listeners\MotdListener.class
 de\vmoon\craftAttack\utils\SpawnTeleporterData.class
 de\vmoon\craftAttack\utils\Metrics$SingleLineChart.class
 de\vmoon\craftAttack\utils\WebServer$ResourceHandler.class

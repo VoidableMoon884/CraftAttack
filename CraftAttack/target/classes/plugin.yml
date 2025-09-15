@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.9.5"
+version: "1.9.6"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]

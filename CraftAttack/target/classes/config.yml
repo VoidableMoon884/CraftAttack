@@ -71,3 +71,9 @@ SpawnTeleporter:
     y: 70
     z: 200
   sound: "ENTITY_ENDERMAN_TELEPORT"
+
+motd:
+  interval: 2          # Intervall in Sekunden
+  messages:
+    - "\u00a7aCraftAttack13 \u00a76Community\u00a7r\n\u00a74Shopping-District\u00a7f Er\u00f6ffnung!"
+    - "\u00a7aCraftAttack13 \u00a76Community\u00a7r\n\u00a7bOffizieller Start!"
