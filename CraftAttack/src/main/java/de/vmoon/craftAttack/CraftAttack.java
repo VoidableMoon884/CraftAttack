@@ -8,13 +8,19 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CraftAttack extends JavaPlugin {
 
-    private static CraftAttack       instance;
-    private ConfigManager            configManager;
-    private pvpCommand               pvpCmd;
-    private SpawnBoostListener       spawnBoostListener;
-    private WebServer                webServer;
+    private static CraftAttack instance;
+    private ConfigManager configManager;
+    private pvpCommand pvpCmd;
+    private SpawnBoostListener spawnBoostListener;
+    private WebServer webServer;
     private SpawnTeleporterListener spawnTeleporterListener;
     private MotdListener motdListener;
+    private MaintenanceManager maintenanceManager;
+    private MaintenanceListener maintenanceListener;
+
+    public MaintenanceManager getMaintenanceManager() {
+        return maintenanceManager;
+    }
 
     @Override
     public void onEnable() {
@@ -28,7 +34,7 @@ public final class CraftAttack extends JavaPlugin {
         new Metrics(this, pluginId);
 
         // 3. HTTP-Server nur starten, wenn API oder Webserver aktiviert sind
-        boolean apiEnabled   = configManager.isApiEnabled();
+        boolean apiEnabled = configManager.isApiEnabled();
         boolean webUiEnabled = configManager.isWebServerEnabled();
         if (apiEnabled || webUiEnabled) {
             int port = configManager.getServerPort();
@@ -36,7 +42,7 @@ public final class CraftAttack extends JavaPlugin {
             webServer.start();
             getLogger().info("HTTP-Server läuft auf Port " + port);
 
-            if (apiEnabled)   getLogger().info("JSON-API aktiviert (Endpoint: /api)");
+            if (apiEnabled) getLogger().info("JSON-API aktiviert (Endpoint: /api)");
             if (webUiEnabled) getLogger().info("Web-Interface aktiviert (Endpoint: /)");
 
         } else {
@@ -66,6 +72,13 @@ public final class CraftAttack extends JavaPlugin {
         // MOTD-Listener erstellen und registrieren
         motdListener = new MotdListener(getConfigManager());
         getServer().getPluginManager().registerEvents(motdListener, this);
+
+        // Init MaintenanceManager
+        maintenanceManager = new MaintenanceManager(configManager);
+
+        // Register Listener
+        maintenanceListener = new MaintenanceListener(maintenanceManager);
+        getServer().getPluginManager().registerEvents(maintenanceListener, this);
 
 
         // 6. SpawnBoostListener optional registrieren
@@ -152,6 +165,7 @@ public final class CraftAttack extends JavaPlugin {
         // Shutdown im Haupt-Thread durchführen
         Bukkit.getScheduler().runTask(this, Bukkit::shutdown);
     }
+
     public SpawnTeleporterListener getSpawnTeleporterListener() {
         return spawnTeleporterListener;
     }

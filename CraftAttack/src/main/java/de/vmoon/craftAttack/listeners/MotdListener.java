@@ -1,5 +1,6 @@
 package de.vmoon.craftAttack.listeners;
 
+import de.vmoon.craftAttack.CraftAttack;
 import de.vmoon.craftAttack.utils.ConfigManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,8 +29,11 @@ public class MotdListener implements Listener {
 
     @EventHandler
     public void onPing(ServerListPingEvent event) {
-        if (motds == null || motds.isEmpty()) {
-            event.setMotd(configManager.getWelcomeMessage());
+        CraftAttack plugin = CraftAttack.getInstance();
+        if (plugin.getMaintenanceManager().isActive()) {
+            // Statt rotierender MOTDs die Maintenance-MOTD aus config.yml nutzen
+            String maintenanceMotd = plugin.getConfigManager().getConfig().getString("motd.maintenance", "§cWartungsmodus aktiv");
+            event.setMotd(maintenanceMotd);
             return;
         }
         long now = System.currentTimeMillis();
