@@ -15,9 +15,12 @@ public class ConfigManager {
     // Extra-Konfiguration (zum Beispiel für persistente Daten wie Spielerstatus)
     private FileConfiguration extraConfig;
     private File extraFile;
+    private FileConfiguration maintenanceConfig;
+    private File maintenanceFile;
 
     public ConfigManager(JavaPlugin plugin) {
         this.plugin = plugin;
+        createMaintenanceConfig("maintenance.yml");
 
         // Hauptconfig: Wenn noch keine config.yml existiert, wird sie aus dem JAR kopiert.
         File configFile = new File(plugin.getDataFolder(), "config.yml");
@@ -43,6 +46,41 @@ public class ConfigManager {
 
         // Erstelle und lade die Extra-Konfiguration (zum Beispiel playerstatuses.yml)
         createExtraConfig("playerstatuses.yml");
+    }
+
+    private void createMaintenanceConfig(String fileName) {
+        maintenanceFile = new File(plugin.getDataFolder(), fileName);
+        if (!maintenanceFile.exists()) {
+            plugin.saveResource(fileName, false);
+        }
+        maintenanceConfig = YamlConfiguration.loadConfiguration(maintenanceFile);
+        plugin.getLogger().info("Maintenance Config geladen: " + (maintenanceConfig != null));
+    }
+
+    // Getter
+    public FileConfiguration getMaintenanceConfig() {
+        if (maintenanceConfig == null) {
+            reloadMaintenanceConfig();
+        }
+        return maintenanceConfig;
+    }
+
+    // Reload
+    public void reloadMaintenanceConfig() {
+        if (maintenanceFile != null) {
+            maintenanceConfig = YamlConfiguration.loadConfiguration(maintenanceFile);
+        }
+    }
+
+    // Speichern
+    public void saveMaintenanceConfig() {
+        if (maintenanceConfig != null && maintenanceFile != null) {
+            try {
+                maintenanceConfig.save(maintenanceFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // Hauptkonfiguration abrufen

@@ -1,0 +1,7 @@
+# CraftAttack maintenance mode configuration
+# set the displayed MOTD in the config.yml
+
+maintenance:
+  active: false
+  whitelist:
+    - 8f1ab746-93e2-4072-b676-81f2f8dc4e44

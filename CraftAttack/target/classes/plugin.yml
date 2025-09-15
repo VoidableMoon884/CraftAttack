@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.9.6"
+version: "1.9.7"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -8,17 +8,17 @@ website: "vmoon.de"
 
 commands:
   craftattack:
-    description: "haupt Craftattack Befehl"
+    description: "Main CraftAttack command"
     usage: /craftattack <Unterbefehl>
-    permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
+    permission-message: "You don't have the permission to use this command!"
     aliases:
       - ca
   pvp:
-    description: "Schaltet den PvP-Modus ein oder aus."
+    description: "Activates/Deactivates the pvp on the server"
     usage: /pvp <on|off>
-    permission-message: "Du hast keine Berechtigung, diesen Befehl auszuführen."
+    permission-message: "You don't have the permission to use this command!"
   status:
-    description: Zeigt einen konfigurierten Status an.
+    description: "Shows the configured status"
     usage: /status <statusname>
 
 permissions:
@@ -51,6 +51,9 @@ permissions:
     default: op
   ca.admin.pregen:
     description: "Pregenerieren von Cunks"
+    default: op
+  ca.admin.maintenance:
+    description: "Erlaubt das Verwalten des Wartungsmodus (start, stop, addplayer, removeplayer)."
     default: op
   ca.builder.spawn:
     description: "Erlaubt das Bauen im gesetzten Spawn-Bereich."

@@ -1,6 +1,6 @@
 # CraftAttack Plugin Config file
 
-# Worldborder beim Start
+# Worldboarder at the Beginnint of the event
 worldborder:
   initial: 100.0
   target: 20000.0
@@ -8,21 +8,21 @@ worldborder:
     x: 0.0
     z: 0.0
 
-# Willkommenstexte
+# Welcome-Texts
 title: '{"text":"Willkommen auf CraftAttack!","color":"red"}'
 welcome: "&aWillkommen auf CraftAttack! Viel Spaß beim Spiel!"
 
-# /craftattack teleportall und Start Teleport Koordinaten
+# /craftattack teleportall and start teleport coordinates
 teleport:
   x: 100.0
   y: 64.0
   z: 100.0
 
-# Text unter der Spielerliste, wenn TAB gedrückt wird
+# The text under the tablist
 tabtext: true
 tab: '{"text":"Default Tab","color":"gold"}'
 
-# Invsee-Feature aktivieren oder deaktivieren
+# Invsee-Feature activated or deactivated
 invsee: true
 
 #Spawn Elytra Configuration
@@ -33,7 +33,7 @@ SpawnElytra:
   world: world
   message: 'Boost ready: Press %key% to boost!'
 
-# Spawn Bereich Koordinaten
+# Spawn-Rage define
 spawnArea:
   x1: 0
   y1: 0
@@ -42,12 +42,12 @@ spawnArea:
   y2: 0
   z2: 0
 
-# Statusdefinitionen
+# Status-definition
 statuses:
   example1: '{"text":"example1", "color":"green", "bold":true}'
   example2: '{"text":"example2", "color":"red"}'
 
-# Webdienste
+# Webservices
 server:
   port: 8020
 enable_webserver: false
@@ -72,7 +72,10 @@ SpawnTeleporter:
     z: 200
   sound: "ENTITY_ENDERMAN_TELEPORT"
 
+# Automaticly changing MOTD (this overwrites the MOTD in sht server.properties)
+# Maintenance is the MOTD displayed in maintenance mode
 motd:
+  maintenance: "\u00a7c\u00a7lWartungsarbeiten!\u00a7r\n\u00a7c\u00a7oBitte versuche es in wenigen Minuten erneut!"
   interval: 2          # Intervall in Sekunden
   messages:
     - "\u00a7aCraftAttack13 \u00a76Community\u00a7r\n\u00a74Shopping-District\u00a7f Er\u00f6ffnung!"

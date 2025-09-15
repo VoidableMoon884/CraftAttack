@@ -1,6 +1,7 @@
 package de.vmoon.craftAttack.commands;
 
 import de.vmoon.craftAttack.*;
+import de.vmoon.craftAttack.utils.MaintenanceManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,6 +12,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CraftAttackCommand implements CommandExecutor, TabCompleter {
@@ -56,6 +58,8 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             return new SetSpawnCommand().onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("pregen")) {
             return new PregenCommand(CraftAttack.getInstance()).onCommand(sender, command, label, args);
+        } else if (sub.equals("maintenance")) {
+            return MaintenanceCommand.handle(sender, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("invsee")) {
             if (!CraftAttack.getInstance().getConfigManager().getConfig().getBoolean("invsee", false)) {
                 sender.sendMessage("§cDer invsee-Befehl ist derzeit deaktiviert.");
@@ -108,6 +112,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("ca.admin.pregen")) {
                 subs.add("pregen");
             }
+            if (sender.hasPermission("ca.admin.maintenance")) {
+                subs.add("maintenance");
+            }
             return subs.stream()
                     .filter(s -> s.startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
@@ -123,6 +130,39 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
                 return Bukkit.getOnlinePlayers().stream()
                         .map(Player::getName)
                         .filter(name -> name.toLowerCase().startsWith(args[1].toLowerCase()))
+                        .collect(Collectors.toList());
+            } else if (args[0].equalsIgnoreCase("maintenance") && sender.hasPermission("ca.admin.maintenance")) {
+                List<String> options = Arrays.asList("on", "off", "addplayer", "removeplayer");
+                return options.stream()
+                        .filter(option -> option.startsWith(args[1].toLowerCase()))
+                        .collect(Collectors.toList());
+
+            }
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("maintenance") && sender.hasPermission("ca.admin.maintenance")) {
+            MaintenanceManager manager = CraftAttack.getInstance().getMaintenanceManager();
+
+            if (args[1].equalsIgnoreCase("addplayer")) {
+                // Spieler online, die bisher nicht in maintenance whitelist sind
+                Set<String> allowedNames = manager.getAllowedPlayers().stream()
+                        .map(uuid -> Bukkit.getOfflinePlayer(uuid).getName())
+                        .collect(Collectors.toSet());
+
+                return Bukkit.getOnlinePlayers().stream()
+                        .map(Player::getName)
+                        .filter(name -> !allowedNames.contains(name))
+                        .filter(name -> name.toLowerCase().startsWith(args[2].toLowerCase()))
+                        .collect(Collectors.toList());
+
+            } else if (args[1].equalsIgnoreCase("removeplayer")) {
+                // Spieler in maintenance whitelist
+                return manager.getAllowedPlayers().stream()
+                        .map(uuid -> Bukkit.getOfflinePlayer(uuid).getName())
+                        .filter(name -> name != null && name.toLowerCase().startsWith(args[2].toLowerCase()))
+                        .collect(Collectors.toList());
+            } else if (args[1].equalsIgnoreCase("on")) {
+                List<String> options = Arrays.asList("force");
+                return options.stream()
+                        .filter(option -> option.toLowerCase().startsWith(args[2].toLowerCase()))
                         .collect(Collectors.toList());
             }
         }
