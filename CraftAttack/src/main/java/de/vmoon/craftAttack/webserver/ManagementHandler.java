@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.BanList;
 import org.bukkit.BanEntry;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -19,6 +20,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class ManagementHandler implements HttpHandler {
+    private final JavaPlugin plugin;
+    public ManagementHandler(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
 
     private static final SimpleDateFormat ISO8601 =
             new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.ROOT);
@@ -85,7 +90,11 @@ public class ManagementHandler implements HttpHandler {
         }
 
         String reason = params.getOrDefault("reason", "Vom Server gekickt");
-        target.kickPlayer(reason);
+
+        plugin.getServer().getScheduler().runTask(plugin, () -> {
+            target.kickPlayer(reason);
+        });
+
         sendJson(exchange, 200, "ok", "Spieler " + name + " wurde gekickt: " + reason);
     }
 
@@ -108,7 +117,9 @@ public class ManagementHandler implements HttpHandler {
 
         Player online = Bukkit.getPlayerExact(name);
         if (online != null) {
-            online.kickPlayer(reason);
+            plugin.getServer().getScheduler().runTask(plugin, () -> {
+                online.kickPlayer(reason);
+            });
         }
 
         sendJson(exchange, 200, "ok", "Spieler " + name + " wurde gebannt: " + reason);

@@ -39,7 +39,7 @@ public class WebServer {
 
             if (main.getConfigManager().isApiEnabled()) {
                 server.createContext("/api/whitelist", new ApiHandler());
-                server.createContext("/api/management", new ManagementHandler());
+                server.createContext("/api/management", new ManagementHandler((CraftAttack) plugin));
                 server.createContext("/api/maintenance", new MaintenanceHandler((CraftAttack) plugin));
             }
             if (main.getConfigManager().isWebServerEnabled()) {
