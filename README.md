@@ -57,42 +57,51 @@ Additional Features:
 
 #### API:
 
-**URL**: http://localhost:8020/api/COMMAND?action=ACTION&addition=...
+## API-Endpunkte Übersicht
 
-COMMAND:
-- whitelist
-- management
+| Base-URL           | Action (`action` Parameter)  | Beschreibung                                            | Erforderliche Parameter          |
+|--------------------|------------------------------|--------------------------------------------------------|---------------------------------|
+| `/api/whitelist`   | `list`                       | Gibt die Whitelist aller Spieler zurück                | keine                          |
+| `/api/whitelist`   | `check`                      | Prüft, ob Spieler mit UUID auf der Whitelist ist       | `uuid`                         |
+| `/api/whitelist`   | `add`                        | Fügt Spieler zur Whitelist hinzu                        | `name`                         |
+| `/api/whitelist`   | `remove`                     | Entfernt Spieler von der Whitelist                      | `name`                         |
+| `/api/management`  | `kick`                       | Kickt einen Spieler vom Server                           | `name`, optional `reason`      |
+| `/api/management`  | `ban`                        | Bannt einen Spieler                                     | `name`, optional `reason`      |
+| `/api/management`  | `unban`                      | Entbannt einen Spieler                                  | `name`                         |
+| `/api/management`  | `banlist`                    | Gibt die Liste aller gebannten Spieler zurück           | keine                          |
+| `/api/management`  | `restart`                    | Startet den Server neu                                  | keine                          |
+| `/api/maintenance` | `status`                     | Gibt den aktuellen Wartungsmodus und Whitelist zurück  | keine                          |
+| `/api/maintenance` | `set`                        | Aktiviert oder deaktiviert den Wartungsmodus            | `active` (true/false)          |
+| `/api/maintenance` | `add`                        | Fügt Spieler zur Wartungs-Whitelist hinzu               | `name`                         |
+| `/api/maintenance` | `remove`                     | Entfernt Spieler von der Wartungs-Whitelist             | `name`                         |
 
-ACTION: whiteist:
-action|addition|function
---------|--------|--------
-list|-|list of all whitelisted players
-check|uuid|checks with the player UUID if the player is on the whitelist
-add|name|adds players to whitelist
-remove|name|removes player from the whitelist
+---
 
-Examples:
-URL|OUTPUT
---------|--------
-http://localhost:8020/api/whitelist?action=list|{"uuid":"8f1ab746-93e2-4072-b676-81f2f8dc4e44","name":"VoidableMoon884"}
-http://localhost:8020/api/whitelist?action=check&uuid=8f1ab746-93e2-4072-b676-81f2f8dc4e44|{"status":"ok","whitelisted":true,"name":"VoidableMoon884"}
-http://localhost:8020/api/whitelist?action=add&name=VoidableMoon884|{"status":"ok","message":"Spieler hinzugefügt"}
-http://localhost:8020/api/whitelist?action=remove&name=VoidableMoon884|{"status":"ok","message":"Spieler entfernt"}
+### Beispiel URLs
 
-ACTION: management
-action|addition|function
---------|--------|--------
-kick|name, reason|kicks a player from the world
-ban|name, reason|bans a player from the server with the specified reason
-unban|name|unbans a player
-banlist|-|gives a list of banned players
+- Whitelist abrufen:  
+  `http://localhost:8020/api/whitelist?action=list`
 
-Examples:
-URL|OUTPUT
---------|--------
-http://localhost:8020/api/management?action=ban&name=VoidableMoon884&reason=REASON|{"status":"ok","message":"Spieler VoidableMoon884 wurde gebannt: REASON"}
-http://localhost:8020/api/management?action=unban&name=VoidableMoon884|{"status":"ok","message":"Spieler VoidableMoon884 wurde entbannt."}
-http://localhost:8020/api/management?action=kick&name=VoidableMoon884|{"status":"error","message":"Spieler VoidableMoon884 ist nicht online."}
+- Whitelist prüfen:  
+  `http://localhost:8020/api/whitelist?action=check&uuid=<UUID>`
+
+- Spieler zur Whitelist hinzufügen:  
+  `http://localhost:8020/api/whitelist?action=add&name=Spielername`
+
+- Spieler kicken:  
+  `http://localhost:8020/api/management?action=kick&name=Spielername&reason=Grund`
+
+- Spieler bannen:  
+  `http://localhost:8020/api/management?action=ban&name=Spielername&reason=Grund`
+
+- Wartungsmodus Status abfragen:  
+  `http://localhost:8020/api/maintenance?action=status`
+
+- Wartungsmodus aktivieren:  
+  `http://localhost:8020/api/maintenance?action=set&active=true`
+
+- Spieler zur Wartungs-Whitelist hinzufügen:  
+  `http://localhost:8020/api/maintenance?action=add&name=Spielername`
 
 
 ## Download:
