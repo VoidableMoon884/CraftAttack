@@ -36,6 +36,11 @@ public class StatusCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(ChatColor.RED + "Verwendung: /status <statusname>");
             return true;
         }
+        String perm = "ca.status." + args[0].toLowerCase();
+        if (!sender.hasPermission(perm)) {
+            sender.sendMessage(ChatColor.RED + "Du hast keine Berechtigung, diesen Status zu setzen!");
+            return true;
+        }
         String inputStatus = args[0];
         if (inputStatus.equalsIgnoreCase("None")) {
             StatusManager.getInstance().setPlayerStatus(player, "");

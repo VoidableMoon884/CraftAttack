@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +18,6 @@ public class StatusManager {
 
     // Speichert für jeden Spieler den Statusnamen (z. B. "Admin")
     private final Map<UUID, String> playerStatusKeys = new HashMap<>();
-
     private final Scoreboard scoreboard;
 
     private StatusManager() {
@@ -37,6 +37,24 @@ public class StatusManager {
     public static void init(JavaPlugin plugin, ConfigManager configManager) {
         pluginInstance = plugin;
         getInstance().configManager = configManager;
+    }
+
+    /**
+     * Gibt alle Statusnamen mit den dazugehörigen Berechtigungen zurück.
+     */
+    public Map<String, String> getStatusPermissions() {
+        Map<String, String> permissions = new HashMap<>();
+        if (pluginInstance == null) {
+            return permissions;
+        }
+        ConfigurationSection statusesSection = pluginInstance.getConfig().getConfigurationSection("statuses");
+        if (statusesSection == null) {
+            return permissions;
+        }
+        for (String statusKey : statusesSection.getKeys(false)) {
+            permissions.put(statusKey, "ca.status." + statusKey.toLowerCase());
+        }
+        return permissions;
     }
 
     /**
@@ -114,3 +132,4 @@ public class StatusManager {
         }
     }
 }
+
