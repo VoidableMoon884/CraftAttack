@@ -1,9 +1,8 @@
-// Datei: src/main/java/de/vmoon/craftAttack/utils/WebServer.java
 package de.vmoon.craftAttack.utils;
 
 import com.sun.net.httpserver.HttpServer;
 import de.vmoon.craftAttack.CraftAttack;
-import de.vmoon.craftAttack.webserver.ManagementHandler;
+import de.vmoon.craftAttack.webserver.*;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -41,6 +40,7 @@ public class WebServer {
             if (main.getConfigManager().isApiEnabled()) {
                 server.createContext("/api/whitelist", new ApiHandler());
                 server.createContext("/api/management", new ManagementHandler());
+                server.createContext("/api/maintenance", new MaintenanceHandler((CraftAttack) plugin));
             }
             if (main.getConfigManager().isWebServerEnabled()) {
                 server.createContext("/", new ResourceHandler(plugin));
