@@ -54,6 +54,10 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             return SetTextsCommand.handle(sender, args);
         } else if (sub.equals("reload")) {
             return ReloadCommand.handle(sender, args);
+        } else if (sub.equals("addstatus")) {
+            String[] addstatusArgs = new String[args.length - 1];
+            System.arraycopy(args, 1, addstatusArgs, 0, addstatusArgs.length);
+            return new AddStatusCommand(CraftAttack.getInstance()).onCommand(sender, command, label, addstatusArgs);
         } else if (sub.equals("setspawn")) {
             return new SetSpawnCommand().onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("pregen")) {
@@ -95,6 +99,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             }
             if (sender.hasPermission("ca.admin.setspawn")) {
                 subs.add("setspawn");
+            }
+            if (sender.hasPermission("ca.admin.addstatus")) {
+                subs.add("addstatus");
             }
             if (CraftAttack.getInstance().getConfigManager().isTabTextEnabled() && sender.hasPermission("ca.admin.settab")) {
                 subs.add("settab");
