@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CraftAttackCommand implements CommandExecutor, TabCompleter {
+    private TempBanCommand tempBanCommand = new TempBanCommand();
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -60,6 +61,8 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             return new AddStatusCommand(CraftAttack.getInstance()).onCommand(sender, command, label, addstatusArgs);
         } else if (sub.equals("setspawn")) {
             return new SetSpawnCommand().onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
+        } else if (sub.equals("tempban")) {
+            return new TempBanCommand().onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("pregen")) {
             return new PregenCommand(CraftAttack.getInstance()).onCommand(sender, command, label, args);
         } else if (sub.equals("maintenance")) {
@@ -96,6 +99,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             }
             if (sender.hasPermission("ca.admin.settitle")) {
                 subs.add("settitle");
+            }
+            if (sender.hasPermission("ca.admin.tempban")) {
+                subs.add("tempban");
             }
             if (sender.hasPermission("ca.admin.setspawn")) {
                 subs.add("setspawn");
@@ -172,6 +178,8 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
                         .filter(option -> option.toLowerCase().startsWith(args[2].toLowerCase()))
                         .collect(Collectors.toList());
             }
+        } if (args.length > 0 && args[0].equalsIgnoreCase("tempban")) {
+            return tempBanCommand.onTabComplete(sender, command, alias, Arrays.copyOfRange(args, 1, args.length));
         }
         return new ArrayList<>();
     }
