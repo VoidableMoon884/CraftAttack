@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "1.9.9"
+version: "2.0.0"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -54,6 +54,9 @@ permissions:
     default: op
   ca.admin.maintenance:
     description: "Erlaubt das Verwalten des Wartungsmodus (start, stop, addplayer, removeplayer)."
+    default: op
+  ca.admin.tempban:
+    description: Erlaubt das temporäre Bannen von Spielern
     default: op
   ca.builder.spawn:
     description: "Erlaubt das Bauen im gesetzten Spawn-Bereich."
