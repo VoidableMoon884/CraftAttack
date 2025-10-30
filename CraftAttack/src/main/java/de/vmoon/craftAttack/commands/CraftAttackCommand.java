@@ -67,6 +67,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             return new PregenCommand(CraftAttack.getInstance()).onCommand(sender, command, label, args);
         } else if (sub.equals("maintenance")) {
             return MaintenanceCommand.handle(sender, Arrays.copyOfRange(args, 1, args.length));
+        } else if (sub.equals("timeout")) {
+            TimeoutCommand timeoutCommand = new TimeoutCommand();
+            return timeoutCommand.onCommand(sender, command, label, Arrays.copyOfRange(args, 1, args.length));
         } else if (sub.equals("invsee")) {
             if (!CraftAttack.getInstance().getConfigManager().getConfig().getBoolean("invsee", false)) {
                 sender.sendMessage("§cDer invsee-Befehl ist derzeit deaktiviert.");
@@ -128,6 +131,9 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             if (sender.hasPermission("ca.admin.maintenance")) {
                 subs.add("maintenance");
             }
+            if (sender.hasPermission("ca.admin.timeout")) {
+                subs.add("timeout");
+            }
             return subs.stream()
                     .filter(s -> s.startsWith(args[0].toLowerCase()))
                     .collect(Collectors.toList());
@@ -180,6 +186,8 @@ public class CraftAttackCommand implements CommandExecutor, TabCompleter {
             }
         } if (args.length > 0 && args[0].equalsIgnoreCase("tempban")) {
             return tempBanCommand.onTabComplete(sender, command, alias, Arrays.copyOfRange(args, 1, args.length));
+        } if (args.length > 0 && args[0].equalsIgnoreCase("timeout")) {
+            return new TimeoutCommand().onTabComplete(sender, command, alias, Arrays.copyOfRange(args, 1, args.length));
         }
         return new ArrayList<>();
     }
