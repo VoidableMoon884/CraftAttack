@@ -1,5 +1,6 @@
 package de.vmoon.craftAttack.listeners;
 
+import de.vmoon.craftAttack.commands.TimeoutCommand;
 import de.vmoon.craftAttack.utils.StatusManager;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -14,6 +15,16 @@ public class ChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
+
+        // Neue Zeilen für Timeout/Mute prüfen und Nachricht blockieren
+        if (TimeoutCommand.isMuted(player)) {
+            long restMillis = TimeoutCommand.getRemainingMuteTime(player);
+            String restFormatted = TimeoutCommand.formatDuration(restMillis);
+            player.sendMessage("§cDu bist stumm geschaltet. Verbleibende Zeit: " + restFormatted);
+            event.setCancelled(true);
+            return;
+        }
+
         String statusPrefix = StatusManager.getInstance().getPlayerStatus(player);
         if (statusPrefix == null || statusPrefix.isEmpty()) {
             Team team = player.getScoreboard().getEntryTeam(player.getName());

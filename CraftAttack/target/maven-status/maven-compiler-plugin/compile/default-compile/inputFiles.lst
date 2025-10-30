@@ -10,6 +10,7 @@ S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\commands\StartCommand.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\commands\StatusCommand.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\commands\TempBanCommand.java
+S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\commands\TimeoutCommand.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\CraftAttack.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\ChatListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\MaintenanceListener.java

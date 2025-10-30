@@ -29,6 +29,7 @@ de\vmoon\craftAttack\listeners\SpawnTeleporterListener$1.class
 de\vmoon\craftAttack\utils\ConfigManager.class
 de\vmoon\craftAttack\utils\SpawnTeleporterData.class
 de\vmoon\craftAttack\utils\Metrics$SingleLineChart.class
+de\vmoon\craftAttack\commands\TimeoutCommand$1.class
 de\vmoon\craftAttack\listeners\ChatListener.class
 de\vmoon\craftAttack\utils\Metrics$DrilldownPie.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedPie.class
@@ -37,6 +38,7 @@ de\vmoon\craftAttack\commands\SetTextsCommand.class
 de\vmoon\craftAttack\utils\MaintenanceManager.class
 de\vmoon\craftAttack\commands\StatusCommand.class
 de\vmoon\craftAttack\listeners\MaintenanceListener.class
+de\vmoon\craftAttack\commands\TimeoutCommand.class
 de\vmoon\craftAttack\utils\Metrics$JsonObjectBuilder.class
 de\vmoon\craftAttack\commands\PregenCommand.class
 de\vmoon\craftAttack\listeners\SpawnProtectionListener.class
