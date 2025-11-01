@@ -4,6 +4,7 @@ de\vmoon\craftAttack\utils\StatusManager.class
 de\vmoon\craftAttack\commands\SetSpawnCommand.class
 de\vmoon\craftAttack\listeners\MotdListener.class
 de\vmoon\craftAttack\commands\TempBanCommand.class
+de\vmoon\craftAttack\listeners\PlayerLimitBypassListener.class
 de\vmoon\craftAttack\utils\WebServer$ResourceHandler.class
 de\vmoon\craftAttack\utils\Metrics$AdvancedBarChart.class
 de\vmoon\craftAttack\listeners\PlayerJoinListener.class

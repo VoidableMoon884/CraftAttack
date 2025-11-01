@@ -16,6 +16,7 @@ S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\MaintenanceListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\MotdListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\PlayerJoinListener.java
+S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\PlayerLimitBypassListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnBoostListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnProtectionListener.java
 S:\!Minecraft\Plugins\CraftAtack\CraftAttack\src\main\java\de\vmoon\craftAttack\listeners\SpawnTeleporterListener.java

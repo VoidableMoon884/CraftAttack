@@ -1,5 +1,5 @@
 name: CraftAttack
-version: "2.0.0"
+version: "2.0.1"
 main: de.vmoon.craftAttack.CraftAttack
 api-version: "1.21"
 authors: [ "VoidableMoon884" ]
@@ -56,7 +56,13 @@ permissions:
     description: "Erlaubt das Verwalten des Wartungsmodus (start, stop, addplayer, removeplayer)."
     default: op
   ca.admin.tempban:
-    description: Erlaubt das temporäre Bannen von Spielern
+    description: "Erlaubt das temporäre Bannen von Spielern"
+    default: op
+  ca.admin.timeout:
+    description: "Spieler timeouten"
+    default: op
+  ca.admin.join.always:
+    description: "Man kann immer dem Server beitreten, auch wenn er voll ist"
     default: op
   ca.builder.spawn:
     description: "Erlaubt das Bauen im gesetzten Spawn-Bereich."

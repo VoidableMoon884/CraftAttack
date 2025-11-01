@@ -28,6 +28,7 @@ public final class CraftAttack extends JavaPlugin {
 
         // 1. Config laden
         configManager = new ConfigManager(this);
+        int maxPlayers = getServer().getMaxPlayers();
 
         // 2. Metrics initialisieren (falls genutzt)
         int pluginId = 25435;
@@ -94,6 +95,8 @@ public final class CraftAttack extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SpawnProtectionListener(), this);
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerLimitBypassListener(maxPlayers), this);
+
 
         // 8. pvp-Command registrieren
         pvpCmd = new pvpCommand();

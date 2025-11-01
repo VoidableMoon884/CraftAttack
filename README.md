@@ -18,6 +18,9 @@ invsee | ca.admin.invsee | op | lets you see the inventory of the players
 setspawn | ca.admin.setspawn | op | creates a protected spawn area where only players with ca.builder.spawn or ca.admin.spawn can build and destroy
 pvp | ca.admin.pvp | op | Enables/Disables PVP
 pregen | ca.admin.pregen | op | Pregenerates chunks in defined number of blocks
+maintenance | ca.admin.maintenance | op | Maintenance on/off
+tempban | ca.admin.temoban | op | Temporary bans players for a specified time
+timeout | ca.admin.timeout | op | Temporary stops players from writing text in the chat for a specified time
 
 Additional Features:
 - Spawn protection in SpawnArea
